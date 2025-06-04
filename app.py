@@ -29,5 +29,9 @@ def getData(year):
     return filteredRevenue.to_json(orient='records')
 
 
+@app.route("/api")
+def api():
+    return {"x": 10}
+
 if __name__ == '__main__':
     app.run()
