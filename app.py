@@ -3,8 +3,10 @@ app = Flask(__name__)
 
 import pandas as pd
 import os
+import sqlite3
 
 APP_FOLDER = os.path.dirname(os.path.realpath(__file__))
+
 
 @app.route('/')
 def w209():
@@ -32,6 +34,16 @@ def getData(year):
 @app.route("/api")
 def api():
     return {"x": 10}
+
+
+@app.route("/players/count")
+def db():
+    con = sqlite3.connect(APP_FOLDER + "/players_20.db")
+    cur = con.cursor()
+    cur.execute("select count(*) from players")
+    res = cur.fetchall()
+    return {"count": res[0][0]}
+
 
 if __name__ == '__main__':
     app.run()
